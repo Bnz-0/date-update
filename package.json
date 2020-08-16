@@ -1,0 +1,19 @@
+{
+  "name": "date-update",
+  "version": "0.1.0",
+  "description": "An update for js' Date class",
+  "main": "date-update.js",
+  "scripts": {
+    "test": "node test.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Bnz-0/date-update.git"
+  },
+  "author": "Matteo Benzi <matteo.benzi97@gmail.com>",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/Bnz-0/date-update/issues"
+  },
+  "homepage": "https://github.com/Bnz-0/date-update#readme"
+}
