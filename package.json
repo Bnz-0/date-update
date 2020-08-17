@@ -3,6 +3,7 @@
   "version": "0.1.0",
   "description": "An update for js' Date class",
   "main": "date-update.js",
+  "types": "date-update.d.ts",
   "scripts": {
     "test": "node test.js"
   },
