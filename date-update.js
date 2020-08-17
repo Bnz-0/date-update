@@ -23,7 +23,7 @@
 //
 // ============================================================
 // 
-// date-update 0.1 — a Javascript Date extension
+// date-update 1.0.0 — an update for js' Date class
 //
 // https://github.com/Bnz-0/date-update
 //
