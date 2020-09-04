@@ -60,12 +60,13 @@ const time_modifiers = {
  */
 Date.prototype.trim = function(a, b='ms') {
 	const date = new Date(this.getTime());
-	const f = time_unit.indexOf(a);
-	const t = time_unit.indexOf(b);
-	for(let i in time_resetter) {
-		if(f > i || i > t)
-			time_resetter[i](date);
-	}
+	let f = time_unit.indexOf(a);
+	let t = time_unit.indexOf(b);
+	if(f < 0 || t < 0) return date;
+
+	while((t = (t+1) % time_unit.length) !== f)
+		time_resetter[t](date);
+
 	return date;
 }
 
@@ -82,9 +83,9 @@ Date.prototype.trim = function(a, b='ms') {
 Date.prototype.add = function(time2add) {
 	const date = new Date(this.getTime());
 	const tm_regex = /([+-]{0,1}[0-9]+)\s*(ms|[yMdhms])/g;
-	let t;
-	while((t = tm_regex.exec(time2add)) !== null) {
+	
+	for(let t; (t = tm_regex.exec(time2add)) !== null; )
 		time_modifiers[t[2]](date, parseInt(t[1]));
-	}
+
 	return date;
 }
