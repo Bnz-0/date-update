@@ -41,6 +41,8 @@ require('date-update');
 	```
 	you will obtain `"1970-01-01T08:19:46.590Z"`, i.e. resets years, months and days and keep hours, minutes, seconds and milliseconds
 
+	> **NB**: it supports even "circular interval", for example `new Date("2020-08-16T08:19:46.590Z").trim('s', 'd')` will produce `2020-08-16T00:00:46.590Z`, i.e. keep seconds, milliseconds, year, month and day only.
+
 - **add(s)**: \
 	add an amount of time (specified by an expression of _time unit_) to the date. \
 	The expression must be a sequence of **integer** and **time unit** (for example "2M -4h" which add 2 month and subtract 4 hours):
