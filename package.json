@@ -1,11 +1,11 @@
 {
   "name": "date-update",
-  "version": "1.0.1",
+  "version": "1.1.0",
   "description": "An update for js' Date class",
   "main": "date-update.js",
   "types": "date-update.d.ts",
   "scripts": {
-    "test": "node test.js"
+    "test": "es-check es5 ./date-update.js && node test.js"
   },
   "repository": {
     "type": "git",
@@ -16,5 +16,8 @@
   "bugs": {
     "url": "https://github.com/Bnz-0/date-update/issues"
   },
-  "homepage": "https://github.com/Bnz-0/date-update#readme"
+  "homepage": "https://github.com/Bnz-0/date-update#readme",
+  "devDependencies": {
+    "es-check": "^5.2.3"
+  }
 }

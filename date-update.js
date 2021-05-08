@@ -1,4 +1,4 @@
-// Copyright (c) 2020 Matteo Benzi <matteo.benzi97@gmail.com>
+// Copyright (c) 2021 Matteo Benzi <matteo.benzi97@gmail.com>
 //
 // Permission is hereby granted, free of charge, to any person
 // obtaining a copy of this software and associated documentation
@@ -22,31 +22,32 @@
 // OTHER DEALINGS IN THE SOFTWARE.
 //
 // ============================================================
-// 
+//
+// date-update 1.1.0 — fully es5 compatible
 // date-update 1.0.0 — an update for js' Date class
 //
 // https://github.com/Bnz-0/date-update
 //
 
 
-const time_unit = ['y','M','d','h','m','s','ms'];
-const time_resetter = [
-	(date) => date.setUTCFullYear(1970),
-	(date) => date.setUTCMonth(0),
-	(date) => date.setUTCDate(1),
-	(date) => date.setUTCHours(0),
-	(date) => date.setUTCMinutes(0),
-	(date) => date.setUTCSeconds(0),
-	(date) => date.setUTCMilliseconds(0),
+var time_unit = ['y','M','d','h','m','s','ms'];
+var time_resetter = [
+	function (date) { date.setUTCFullYear(1970) },
+	function (date) { date.setUTCMonth(0) },
+	function (date) { date.setUTCDate(1) },
+	function (date) { date.setUTCHours(0) },
+	function (date) { date.setUTCMinutes(0) },
+	function (date) { date.setUTCSeconds(0) },
+	function (date) { date.setUTCMilliseconds(0) },
 ];
-const time_modifiers = {
-	'y': (date, x) => date.setUTCFullYear(date.getUTCFullYear() + x),
-	'M': (date, x) => date.setUTCMonth(date.getUTCMonth() + x),
-	'd': (date, x) => date.setUTCDate(date.getUTCDate() + x),
-	'h': (date, x) => date.setUTCHours(date.getUTCHours() + x),
-	'm': (date, x) => date.setUTCMinutes(date.getUTCMinutes() + x),
-	's': (date, x) => date.setUTCSeconds(date.getUTCSeconds() + x),
-	'ms': (date, x) => date.setUTCMilliseconds(date.getUTCMilliseconds() + x),
+var time_modifiers = {
+	'y': function (date, x) { date.setUTCFullYear(date.getUTCFullYear() + x) },
+	'M': function (date, x) { date.setUTCMonth(date.getUTCMonth() + x) },
+	'd': function (date, x) { date.setUTCDate(date.getUTCDate() + x) },
+	'h': function (date, x) { date.setUTCHours(date.getUTCHours() + x) },
+	'm': function (date, x) { date.setUTCMinutes(date.getUTCMinutes() + x) },
+	's': function (date, x) { date.setUTCSeconds(date.getUTCSeconds() + x) },
+	'ms':function  (date, x) { date.setUTCMilliseconds(date.getUTCMilliseconds() + x) },
 };
 
 
@@ -54,14 +55,15 @@ const time_modifiers = {
  * returns a new date resetting the date/time not in `[a; b]`
  * @param {string} a one of `y`, `M`, `d`, `h`, `m`, `s`, `ms`
  * @param {string} b one of `y`, `M`, `d`, `h`, `m`, `s`, `ms`
- * 
+ *
  * @example
  * var time = new Date().trim('h', 'ms') //keep only the time form hours to milliseconds
  */
-Date.prototype.trim = function(a, b='ms') {
-	const date = new Date(this.getTime());
-	let f = time_unit.indexOf(a);
-	let t = time_unit.indexOf(b);
+Date.prototype.trim = function(a, b) {
+	if(!b) b = 'ms';
+	var date = new Date(this.getTime());
+	var f = time_unit.indexOf(a);
+	var t = time_unit.indexOf(b);
 	if(f < 0 || t < 0) return date;
 
 	while((t = (t+1) % time_unit.length) !== f)
@@ -73,18 +75,18 @@ Date.prototype.trim = function(a, b='ms') {
 
 /**
  * add an amount of time to the date and return it in a new Date
- * @param {string} time2add a string representing an expression of the amount of time to add.  
+ * @param {string} time2add a string representing an expression of the amount of time to add.
  * the expression must be a sequence of **integer** and **time unit of measure**
  * (which could be one of these: `y`, `M`, `d`, `h`, `m`, `s`, `ms`)
- * 
+ *
  * @example
  * var date = new Date().add("+3d -1h") //adds 3 days and subtract 1 hour
  */
 Date.prototype.add = function(time2add) {
-	const date = new Date(this.getTime());
-	const tm_regex = /([+-]{0,1}[0-9]+)\s*(ms|[yMdhms])/g;
-	
-	for(let t; (t = tm_regex.exec(time2add)) !== null; )
+	var date = new Date(this.getTime());
+	var tm_regex = /([+-]{0,1}[0-9]+)\s*(ms|[yMdhms])/g;
+
+	for(var t; (t = tm_regex.exec(time2add)) !== null; )
 		time_modifiers[t[2]](date, parseInt(t[1]));
 
 	return date;
