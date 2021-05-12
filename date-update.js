@@ -23,6 +23,7 @@
 //
 // ============================================================
 //
+// date-update 1.1.1 — new function: fixOffset
 // date-update 1.1.0 — fully es5 compatible
 // date-update 1.0.0 — an update for js' Date class
 //
@@ -90,4 +91,17 @@ Date.prototype.add = function(time2add) {
 		time_modifiers[t[2]](date, parseInt(t[1]));
 
 	return date;
+}
+
+
+/**
+ * since this library reason in UTC to avoid some other problems, to get the correct local date you have to adjuts the timezone offset.
+ * This function returns a new date with the correct offset.
+ *
+ * @example
+ * new Date('2021/01/01').trim('y','d').getDate() // 31
+ * new Date('2021/01/01').trim('y','d').fixOffset().getDate() // 1
+ */
+Date.prototype.fixOffset = function() {
+	return this.add(-this.getTimezoneOffset()+'m');
 }

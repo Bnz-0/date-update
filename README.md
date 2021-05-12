@@ -53,3 +53,15 @@ require('date-update');
 
 	> **NB**: it supports even "broken value" (for example "+365d" will add a year, if the actual year is not bissextile) and also repetition of the same time unit (for example "+3h -5h")
 
+- **fixOffset**: \
+	Since this library reason in UTC to avoid some other problems, to get the correct local date you have to adjuts the timezone offset.
+	This function returns a new date with the correct offset.
+
+	For example with a timezone +-x where x!=0:
+	```javascript
+	new Date('2021/01/01').trim('y','d').getDate() // 31
+	```
+	because of the "setUTC...", to avoid this problem easily use fixOffset like below:
+	```javascript
+	new Date('2021/01/01').trim('y','d').fixOffset().getDate() // 1
+	```

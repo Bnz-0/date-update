@@ -16,4 +16,10 @@ assert(d1.trim('d','a').getTime() === d1.getTime())
 // add tests //
 assert(d1.add("-1y +0y +2M -4d +10h -55m +5m -21s + 864ms").getTime() === d3.getTime())
 
+// fixOffset tests //
+const d = new Date('2021/01/01').fixOffset().trim('y','d');
+assert(d.getDate() === 1);
+assert(d.getMonth() === 0);
+assert(d.getFullYear() === 2021);
+
 console.log('All tests passed');
