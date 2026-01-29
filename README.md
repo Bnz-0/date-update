@@ -1,3 +1,8 @@
+### ⚠️ Repo moved to Codeberg: https://codeberg.org/bnz/date-update ⚠️
+
+---
+---
+
 # date-update — an update for js' Date class
 
 Js' Date is a very useful class, but sometimes to doing something "simple" you have to write a lot of boring code (even with other similar libraries).
